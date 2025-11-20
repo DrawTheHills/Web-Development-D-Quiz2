@@ -1,0 +1,56 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+import model.Patient;
+
+public class PatientService {
+   private static List<Patient> patients = new ArrayList();
+   private static int nextId = 104;
+
+   public PatientService() {
+   }
+
+   public Patient getPatientById(int var1) {
+      return (Patient)patients.stream().filter((var1x) -> {
+         return var1x.getId() == var1;
+      }).findFirst().orElse((Object)null);
+   }
+
+   public void updatePatient(Patient var1) {
+      int var2 = -1;
+
+      for(int var3 = 0; var3 < patients.size(); ++var3) {
+         if (((Patient)patients.get(var3)).getId() == var1.getId()) {
+            var2 = var3;
+            break;
+         }
+      }
+
+      if (var2 != -1) {
+         patients.set(var2, var1);
+      }
+
+   }
+
+   public List<Patient> getAllPatients() {
+      return patients;
+   }
+
+   public void addPatient(Patient var1) {
+      var1.setId(nextId++);
+      patients.add(var1);
+   }
+
+   public void deletePatient(int var1) {
+      patients.removeIf((var1x) -> {
+         return var1x.getId() == var1;
+      });
+   }
+
+   static {
+      patients.add(new Patient(101, "Anisa Nur", "Jl. Mawar No. 12", "08123456789"));
+      patients.add(new Patient(102, "Bima Sakti", "Jl. Anggrek Gg. 5", "08567890123"));
+      patients.add(new Patient(103, "Citra Dewi", "Komplek Hijau Blok C", "08765432109"));
+   }
+}
