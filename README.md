@@ -2,6 +2,10 @@
 
 ### Clinic System - With JSP
 
+| Name | NRP | Class | Contribution
+| -----| --- | ----- | --- |
+|   Naufal Fadhlil Wafi   |  5025241246   |    D   | 100% |
+
 ## Project Overview
 
 The Clinic System is a web-based application developed using JSP, CSS, and deployed on Apache Tomcat, with Java as the backend programming language. The web application is designed to help a psychiatrist manage and record patient data efficiently. The design and functionality are inspired by Dr. Hannibal Lecter, known for his meticulous and mysterious nature, emphasizing precision and thorough data management.
