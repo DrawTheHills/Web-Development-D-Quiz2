@@ -1,0 +1,19 @@
+package service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import model.Session;
+
+public class SessionService {
+   public SessionService() {
+   }
+
+   public List<Session> getAllSessions() {
+      ArrayList var1 = new ArrayList();
+      var1.add(new Session(1, "Konseling Individu", new BigDecimal("350000"), 60));
+      var1.add(new Session(2, "Terapi Kelompok", new BigDecimal("200000"), 90));
+      var1.add(new Session(3, "Assesment Karir", new BigDecimal("500000"), 120));
+      return var1;
+   }
+}
