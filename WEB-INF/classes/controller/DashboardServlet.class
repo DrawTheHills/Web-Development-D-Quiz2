@@ -1,0 +1,37 @@
+package controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import service.DashboardService;
+
+@WebServlet(
+   name = "DashboardServlet",
+   urlPatterns = {"/dashboard"}
+)
+public class DashboardServlet extends HttpServlet {
+   private DashboardService service;
+
+   public DashboardServlet() {
+   }
+
+   public void init() {
+      this.service = new DashboardService();
+   }
+
+   protected void doGet(HttpServletRequest var1, HttpServletResponse var2) throws ServletException, IOException {
+      int var3 = this.service.getTotalPatients();
+      int var4 = this.service.getTotalBookings();
+      String var5 = this.service.getTotalRevenueFormatted();
+      List var6 = this.service.getMonthlyRevenue();
+      var1.setAttribute("stats_patients", var3);
+      var1.setAttribute("stats_bookings", var4);
+      var1.setAttribute("stats_revenue", var5);
+      var1.setAttribute("list_revenue", var6);
+      var1.getRequestDispatcher("/dashboard.jsp").forward(var1, var2);
+   }
+}
