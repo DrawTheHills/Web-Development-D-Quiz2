@@ -1,0 +1,30 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+import model.RevenueItem;
+
+public class DashboardService {
+   public DashboardService() {
+   }
+
+   public int getTotalPatients() {
+      return 125;
+   }
+
+   public int getTotalBookings() {
+      return 48;
+   }
+
+   public String getTotalRevenueFormatted() {
+      return "45.500.000";
+   }
+
+   public List<RevenueItem> getMonthlyRevenue() {
+      ArrayList var1 = new ArrayList();
+      var1.add(new RevenueItem("Januari 2024", 1.25E7));
+      var1.add(new RevenueItem("Februari 2024", 1.5E7));
+      var1.add(new RevenueItem("Maret 2024", 1.8E7));
+      return var1;
+   }
+}
