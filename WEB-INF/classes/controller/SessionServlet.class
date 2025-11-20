@@ -1,0 +1,82 @@
+package controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import model.Patient;
+import service.PatientService;
+
+@WebServlet(
+   name = "PatientServlet",
+   urlPatterns = {"/patients"}
+)
+public class PatientServlet extends HttpServlet {
+   private PatientService service;
+
+   public PatientServlet() {
+   }
+
+   public void init() {
+      this.service = new PatientService();
+   }
+
+   protected void doGet(HttpServletRequest var1, HttpServletResponse var2) throws ServletException, IOException {
+      String var3 = var1.getParameter("deleteId");
+      String var4 = var1.getParameter("editId");
+      int var5;
+      if (var3 != null && !var3.isEmpty()) {
+         try {
+            var5 = Integer.parseInt(var3);
+            this.service.deletePatient(var5);
+            var2.sendRedirect(var1.getContextPath() + "/patients");
+            return;
+         } catch (NumberFormatException var8) {
+         }
+      }
+
+      if (var4 != null && !var4.isEmpty()) {
+         try {
+            var5 = Integer.parseInt(var4);
+            Patient var6 = this.service.getPatientById(var5);
+            if (var6 != null) {
+               var1.setAttribute("patient", var6);
+               var1.getRequestDispatcher("/editPatient.jsp").forward(var1, var2);
+               return;
+            }
+         } catch (NumberFormatException var7) {
+         }
+      }
+
+      List var9 = this.service.getAllPatients();
+      var1.setAttribute("patientsList", var9);
+      var1.getRequestDispatcher("/patients.jsp").forward(var1, var2);
+   }
+
+   protected void doPost(HttpServletRequest var1, HttpServletResponse var2) throws ServletException, IOException {
+      String var3 = var1.getParameter("id");
+      String var4 = var1.getParameter("name");
+      String var5 = var1.getParameter("address");
+      String var6 = var1.getParameter("phone");
+      if (var4 != null && !var4.trim().isEmpty()) {
+         int var7 = 0;
+
+         try {
+            var7 = Integer.parseInt(var3);
+         } catch (NumberFormatException var9) {
+         }
+
+         Patient var8 = new Patient(var7, var4, var5, var6);
+         if (var7 > 0) {
+            this.service.updatePatient(var8);
+         } else {
+            this.service.addPatient(var8);
+         }
+      }
+
+      var2.sendRedirect(var1.getContextPath() + "/patients");
+   }
+}
