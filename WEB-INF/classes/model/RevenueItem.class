@@ -1,0 +1,19 @@
+package model;
+
+public class RevenueItem {
+   private String month;
+   private double amount;
+
+   public RevenueItem(String var1, double var2) {
+      this.month = var1;
+      this.amount = var2;
+   }
+
+   public String getMonth() {
+      return this.month;
+   }
+
+   public double getAmount() {
+      return this.amount;
+   }
+}
